@@ -2,9 +2,8 @@ const baseUrl = 'https://api.pexels.com/v1/search?query=';
 const apiKey = 'hlGi7oSsJeXRzMIlZadnCzDCEIZeb9KtuzwDczHtH6Msx6c4za18jFni';
 
 const commonHeaders = {
-    'Content-Type': 'application/json',
-    'Authorization': apiKey,
     'Content-Type': 'application/json; charset=utf-8',
+    'Authorization': apiKey,
 };
 
 function fetchData(endpoint) {
@@ -29,4 +28,5 @@ function fetchData(endpoint) {
 
 fetchData('ocean')
     .then(json => console.log(json));
+
 
