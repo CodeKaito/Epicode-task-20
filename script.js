@@ -1,10 +1,6 @@
 const baseUrl = 'https://api.pexels.com/v1/search?query=';
 const apiKey = 'hlGi7oSsJeXRzMIlZadnCzDCEIZeb9KtuzwDczHtH6Msx6c4za18jFni';
 
-// let searchInput = document.getElementById('searchInput');
-
-// let inputFetch = searchInput.value;
-
 const commonHeaders = {
     'Content-Type': 'application/json',
     'Authorization': apiKey,
