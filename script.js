@@ -13,7 +13,7 @@ const searchResult = document.getElementById('searchResult'); // Contenitore ris
 const title = document.getElementById('title'); // Elemento del titolo
 
 // Funzione asincrona per recuperare dati dall'API
-const fetchData = async (endpoint) => {
+const fetchData = (endpoint) => {
     // Compone l'URL completo unendo la base URL e l'endpoint passato come variabile 
     const url = `${baseUrl}${endpoint}`;
     
@@ -26,21 +26,17 @@ const fetchData = async (endpoint) => {
         },
     };
 
-    // Blocco try-catch per gestire eventuali errori di fetching
-    try {
-        // Effettua la richiesta utilizzando l'URL e le opzioni definite
-        const response = await fetch(url, requestOptions);
-        
-        // Verifica se la risposta è ok (con successo)
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`); // Se non è ok, genera un errore
-        }
-        
-        // Estrai e restituisci i dati JSON dalla risposta
-        return await response.json();
-    } catch (error) {
-        console.error('Error detected:', error); // Gestisci gli errori, se presenti, stampando un messaggio di errore sulla console
-    }
+    // Ritorna una Promise che risolve con la risposta JSON o viene respinta in caso di errore
+    return fetch(url, requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error detected:', error);
+        });
 };
 
 
@@ -108,21 +104,15 @@ buttonSearch.addEventListener('click', async (e) => {
     // Recupera il valore inserito nell'input di ricerca, eliminando eventuali spazi vuoti iniziali e finali
     const value = searchInput.value.trim();
 
-    // Blocco try-catch per gestire eventuali errori di fetching
-    try {
-        // Esegui una richiesta asincrona per ottenere dati dall'API utilizzando il valore di ricerca
-        const data = await fetchData(value);
-
-        // Chiamata alla funzione per creare e visualizzare il titolo basato sul valore di ricerca
-        createTitle(value);
-        
-        // Chiamata alla funzione per creare e visualizzare le cards delle immagini basate sui dati restituiti dall'API
-        createCards(data);
-
-    } catch (error) {
-        // Se si verifica un errore durante l'esecuzione del blocco try, catturalo e stampa un messaggio di errore sulla console
-        console.error('Error detected:', error);
-    }
+    // Esegui la richiesta utilizzando il valore di ricerca
+    fetchData(value)
+        .then(data => {
+            createTitle(value);
+            createCards(data);
+        })
+        .catch(error => {
+            console.error('Error detected:', error);
+        });
 });
 
 // Esegui la visualizzazione di immagini casuali quando la pagina è completamente caricata
