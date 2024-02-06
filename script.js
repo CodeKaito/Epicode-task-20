@@ -43,7 +43,7 @@ let createCards = (data) => {
 
         card.innerHTML = `
                       <div class="card">
-                          <img src="${item.src.original}" class="card-img-top rounded" alt="${item.alt}">
+                          <img src="${item.src.original}" class="card-img-top rounded" alt="${item.alt} loading="lazy"">
                       </div>
                         `;
         
