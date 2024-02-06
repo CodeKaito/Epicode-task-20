@@ -2,6 +2,10 @@
 const baseUrl = 'https://api.pexels.com/v1/search?query='; // URL di base per le richieste API
 const apiKey = 'hlGi7oSsJeXRzMIlZadnCzDCEIZeb9KtuzwDczHtH6Msx6c4za18jFni'; // Chiave API per l'autenticazione
 
+// Array random
+const randomArray = ['ocean', 'mountain', 'forest', 'city', 'animal', 'sky', 'beach', 'desert', 'flower', 'space', 'architecture', 'technology', 'food', 'abstract', 'vintage', 'travel', 'music', 'wildlife', 'sport', 'history', 'waterfall', 'island', 'car', 'holiday', 'night', 'fire', 'winter', 'summer', 'spring', 'autumn', 'portrait', 'macro', 'underwater', 'science', 'book', 'cinema', 'fashion', 'health', 'industrial', 'sunset', 'sunrise'];
+
+
 // Variabili globali
 const buttonSearch = document.getElementById('buttonSearch'); // Bottone di ricerca
 const searchInput = document.getElementById('searchInput'); // Input di ricerca
@@ -78,6 +82,24 @@ searchInput.addEventListener("keydown", (e) => {
     }
 });
 
+// Funzione per ottenere dati casuali dall'API
+const getRandomData = async (keywords) => {
+
+    const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
+    
+    try {
+        // Esegui una richiesta asincrona per ottenere dati casuali dall'API
+        const randomData = await fetchData(randomKeyword);
+
+        // Chiamata alla funzione per creare e visualizzare le cards delle immagini basate sui dati restituiti dall'API
+        createCards(randomData);
+
+    } catch (error) {
+        // Gestione degli errori durante la richiesta di dati casuali
+        console.error('Error fetching random data:', error);
+    }
+};
+
 
 // Aggiungi un event listener al click del pulsante di ricerca
 buttonSearch.addEventListener('click', async (e) => {
@@ -103,3 +125,5 @@ buttonSearch.addEventListener('click', async (e) => {
     }
 });
 
+// Esegui la visualizzazione di immagini casuali quando la pagina è completamente caricata
+window.onload = getRandomData(randomArray);
