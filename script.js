@@ -6,6 +6,7 @@ const apiKey = 'hlGi7oSsJeXRzMIlZadnCzDCEIZeb9KtuzwDczHtH6Msx6c4za18jFni';
 const buttonSearch = document.getElementById('buttonSearch');
 const searchInput = document.getElementById('searchInput');
 const searchResult = document.getElementById('searchResult');
+const title = document.getElementById('title');
 
 const fetchData = async (endpoint) => {
     const url = `${baseUrl}${endpoint}`;
@@ -28,14 +29,29 @@ const fetchData = async (endpoint) => {
     }
 };
 
-let createCards = () => {
-    let cards = document.createElement('div');
-    cards.innerHTML = 
-                        `
-                           <h5>Hello</h5> 
-                        `;
-    searchResult.appendChild(cards);
+let createTitle = (titleInput) => {
+    title.innerText = `You are searching ${titleInput} images`;
 };
+
+let createCards = (data) => {
+    searchResult.innerHTML = '';
+
+    data.photos.forEach((item) => {
+        let card = document.createElement('div');
+
+        card.classList.add("col-xl-4", "col-lg-6", "col-md-6", "col-sm-12", "mb-4" , "pointer");
+
+        card.innerHTML = `
+                      <div class="card">
+                          <img src="${item.src.original}" class="card-img-top rounded" alt="${item.alt}" loading="lazy">
+                      </div>
+                        `;
+        
+        searchResult.appendChild(card);
+    });
+};
+
+
 
 searchInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -48,12 +64,16 @@ searchInput.addEventListener("keydown", (e) => {
 buttonSearch.addEventListener('click', async (e) => {
     e.preventDefault();
     const value = searchInput.value.trim();
-    console.log(value);
 
     try {
         const data = await fetchData(value);
-        console.log(data);
-        createCards();
+
+        createTitle(value);
+        
+        createCards(data);
+
+        
+
     } catch (error) {
         console.error('Error detected:', error);
     }
