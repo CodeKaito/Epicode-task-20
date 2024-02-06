@@ -14,11 +14,20 @@
     <body>
         <header>
             <!-- place navbar here -->
+            <nav class="navbar bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand">
+                    <img src="https://cdn0.iconfinder.com/data/icons/apple-apps/100/Apple_Photos-512.png" alt="logo" width="60" class="ms-4 mt-2 pointer">
+                  </a>
+                  <form class="d-flex me-5" role="search">
+                    <input class="form-control me-2" type="search" aria-label="Search" type="text" placeholder="Search" id="searchInput">
+                    <button class="btn btn-outline-success" type="submit" id="buttonSearch">Search</button>
+                  </form>
+                </div>
+              </nav>
         </header>
         <main class="d-flex justify-content-center mt-5">
-            <input type="text" placeholder="Search" id="searchInput">
-            <button id="buttonSearch">Send</button>
-                <div class="photos">
+                <div id="searchResult">
                     <!-- Photos here -->
                 </div>
         </main>
