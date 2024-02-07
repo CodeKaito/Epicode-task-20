@@ -83,17 +83,16 @@ const getRandomData = async (keywords) => {
 
     const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
     
-    try {
-        // Esegui una richiesta asincrona per ottenere dati casuali dall'API
-        const randomData = await fetchData(randomKeyword);
-
-        // Chiamata alla funzione per creare e visualizzare le cards delle immagini basate sui dati restituiti dall'API
-        createCards(randomData);
-
-    } catch (error) {
-        // Gestione degli errori durante la richiesta di dati casuali
-        console.error('Error fetching random data:', error);
-    }
+    // Esegui la richiesta utilizzando il valore di ricerca
+    fetchData(randomKeyword)
+        .then(data => {
+            // Chiamata alla funzione per creare e visualizzare le cards delle immagini basate sui dati restituiti dall'API
+            createCards(data);
+        })
+        .catch(error => {
+            // Gestione degli errori durante la richiesta di dati casuali
+            console.error('Error fetching random data:', error);
+        });
 };
 
 
