@@ -12,7 +12,7 @@ const searchInput = document.getElementById('searchInput'); // Input di ricerca
 const searchResult = document.getElementById('searchResult'); // Contenitore risultati della ricerca
 const title = document.getElementById('title'); // Elemento del titolo
 
-// Funzione asincrona per recuperare dati dall'API
+// Funzione fetch per recuperare dati dall'API, restituisce una promise
 const fetchData = (endpoint) => {
     // Compone l'URL completo unendo la base URL e l'endpoint passato come variabile 
     const url = `${baseUrl}${endpoint}`;
@@ -79,7 +79,7 @@ searchInput.addEventListener("keydown", (e) => {
 });
 
 // Funzione per ottenere dati casuali dall'API
-const getRandomData = async (keywords) => {
+const getRandomData = (keywords) => {
 
     const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
     
@@ -97,7 +97,7 @@ const getRandomData = async (keywords) => {
 
 
 // Aggiungi un event listener al click del pulsante di ricerca
-buttonSearch.addEventListener('click', async (e) => {
+buttonSearch.addEventListener('click', (e) => {
     e.preventDefault(); // Previeni il comportamento predefinito del form (evita il ricaricamento della pagina)
 
     // Recupera il valore inserito nell'input di ricerca, eliminando eventuali spazi vuoti iniziali e finali
